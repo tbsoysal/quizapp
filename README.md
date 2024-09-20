@@ -1,5 +1,5 @@
 # quizapp
-Creating a quiz app where users can answer multiple-choice questions. After completing the quiz, display the score and correct answers
+Creating a quiz app where users can answer multiple-choice questions. After completing the quiz, display the score.
 
 # UML Diagram
-![Screenshot from 2024-09-20 17-04-04](https://github.com/user-attachments/assets/15fb00de-8d37-437e-b515-2603071e0588)
+![Screenshot from 2024-09-20 18-32-05](https://github.com/user-attachments/assets/a5cb15f8-bb7d-4daa-8234-0144ade9ab59)
