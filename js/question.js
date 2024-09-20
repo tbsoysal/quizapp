@@ -45,7 +45,7 @@ export default class Question {
     if (clickedElement.innerText === this.correctAnswer) {
       if (!clickedElement.classList.contains("checked")) {
         clickedElement.classList.add("checked");
-        this.saveAnswers();
+        this.saveAnswer();
         quiz.score += 10;
       }
     } else {
@@ -63,10 +63,10 @@ export default class Question {
     answerElements.forEach((el) => {
       if (el.innerText === this.correctAnswer) el.classList.add("checked");
     });
-    this.saveAnswers();
+    this.saveAnswer();
   }
 
-  saveAnswers() {
+  saveAnswer() {
     this.template = document.body.innerHTML;
   }
 }
