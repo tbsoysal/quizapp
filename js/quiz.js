@@ -6,12 +6,13 @@ class Quiz {
     this.questionIndex = 0;
     this.currentQuestion = this.questions[this.questionIndex];
     this.score = 0;
+    this.userAnswersTemplates = [];
   }
 
   displayQuestion() {
     const currentQuestion = this.questions[this.questionIndex];
     // create question
-    const questionTemplate = `
+    const questionTemplate = this.userAnswersTemplates[this.questionIndex] ? this.userAnswersTemplates[this.questionIndex] : `
     <header>
         ${this.questionIndex > 0 ? `<button type="button" class="prev-button"><i class="fa-solid fa-angle-left"></i>Previous</button>` : ""}
         <p class="question-counter">${this.questionIndex + 1}/10</p>
@@ -57,10 +58,13 @@ class Quiz {
             answerEl.classList.add("falsechecked"); // highlight the selected answer with red
           }
         }
+
         // show the answer after 500 ms
         setTimeout(() => {
           this.showAnswer();
+          this.userAnswersTemplates.push(document.body.innerHTML);
         }, 500);
+
       });
     });
   }
@@ -83,7 +87,6 @@ class Quiz {
 
   checkAnswer(userAnswer) {
     const correctAnswer = this.currentQuestion.answer;
-    console.log(correctAnswer)
     if (userAnswer === correctAnswer)
       return true;
     else
