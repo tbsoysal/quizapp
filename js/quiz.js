@@ -12,7 +12,9 @@ class Quiz {
   displayQuestion() {
     const currentQuestion = this.questions[this.questionIndex];
     // create question
-    const questionTemplate = this.userAnswersTemplates[this.questionIndex] ? this.userAnswersTemplates[this.questionIndex] : `
+    const questionTemplate = this.userAnswersTemplates[this.questionIndex]
+      ? this.userAnswersTemplates[this.questionIndex]
+      : `
     <header>
         ${this.questionIndex > 0 ? `<button type="button" class="prev-button"><i class="fa-solid fa-angle-left"></i>Previous</button>` : ""}
         <p class="question-counter">${this.questionIndex + 1}/10</p>
@@ -33,12 +35,11 @@ class Quiz {
     document.body.innerHTML = questionTemplate;
 
     // add event listener for next and prev buttons
-    const nextBtn = document.querySelector('.next-button');
-    const prevBtn = document.querySelector('.prev-button');
+    const nextBtn = document.querySelector(".next-button");
+    const prevBtn = document.querySelector(".prev-button");
     nextBtn.addEventListener("click", () => this.displayNext());
     // if previous button exsists
-    if (prevBtn)
-      prevBtn.addEventListener("click", () => this.displayPrev());
+    if (prevBtn) prevBtn.addEventListener("click", () => this.displayPrev());
 
     // add event listeners for answer clicks
     const answerElements = document.querySelectorAll(".answer");
@@ -57,20 +58,19 @@ class Quiz {
           } else {
             answerEl.classList.add("falsechecked"); // highlight the selected answer with red
           }
+          // show the answer after 500 ms
+          setTimeout(() => {
+            this.showAnswer();
+          }, 500);
         }
-
-        // show the answer after 500 ms
-        setTimeout(() => {
-          this.showAnswer();
-          this.userAnswersTemplates.push(document.body.innerHTML);
-        }, 500);
-
       });
     });
   }
 
   displayNext() {
     if (this.questionIndex < this.questions.length - 1) {
+      this.userAnswersTemplates[this.questionIndex] = document.body.innerHTML;
+      console.log(this.userAnswersTemplates);
       this.questionIndex++;
       this.currentQuestion = this.questions[this.questionIndex];
       this.displayQuestion();
@@ -79,6 +79,8 @@ class Quiz {
 
   displayPrev() {
     if (this.questionIndex > 0) {
+      this.userAnswersTemplates[this.questionIndex] = document.body.innerHTML;
+      console.log(this.userAnswersTemplates);
       this.questionIndex--;
       this.currentQuestion = this.questions[this.questionIndex];
       this.displayQuestion();
@@ -87,29 +89,25 @@ class Quiz {
 
   checkAnswer(userAnswer) {
     const correctAnswer = this.currentQuestion.answer;
-    if (userAnswer === correctAnswer)
-      return true;
-    else
-      return false
+    if (userAnswer === correctAnswer) return true;
+    else return false;
   }
 
   showAnswer() {
     const correctAnswer = this.currentQuestion.answer;
     const answerElements = document.querySelectorAll(".answer");
     answerElements.forEach((element) => {
-      if (element.innerText === correctAnswer)
-        element.classList.add('checked');
-    })
+      if (element.innerText === correctAnswer) element.classList.add("checked");
+    });
   }
 
   displayScore() {
-    document.body.innerHTML = 
-      `
+    document.body.innerHTML = `
       <h2 style="text-align:center;">Score: ${this.score} / 100</h2>
       <button class="next-button">Restart</button>
       `;
 
-    const restartBtn = document.querySelector('.next-button');
+    const restartBtn = document.querySelector(".next-button");
     restartBtn.addEventListener("click", () => this.restartQuiz());
   }
 
